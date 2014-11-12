@@ -206,13 +206,25 @@ class Package
     if @bundledPackage and packagesCache[@name]?
       @keymaps = (["#{atom.packages.resourcePath}#{path.sep}#{keymapPath}", keymapObject] for keymapPath, keymapObject of packagesCache[@name].keymaps)
     else
-      @keymaps = @getKeymapPaths().map (keymapPath) -> [keymapPath, CSON.readFileSync(keymapPath)]
+      @keymaps = @getKeymapPaths().map (keymapPath) =>
+        keymap = CSON.readFileSync(keymapPath)
+        atom.packages.selectorLinter.checkKeymap(keymap, {
+          packageName: @name,
+          sourcePath: path.relative(@path, keymapPath)
+        })
+        [keymapPath, keymap]
 
   loadMenus: ->
     if @bundledPackage and packagesCache[@name]?
       @menus = (["#{atom.packages.resourcePath}#{path.sep}#{menuPath}", menuObject] for menuPath, menuObject of packagesCache[@name].menus)
     else
-      @menus = @getMenuPaths().map (menuPath) -> [menuPath, CSON.readFileSync(menuPath)]
+      @menus = @getMenuPaths().map (menuPath) =>
+        menu = CSON.readFileSync(menuPath)
+        atom.packages.selectorLinter.checkMenu(menu, {
+          packageName: @name,
+          sourcePath: path.relative(@path, menuPath)
+        })
+        [menuPath, menu]
 
   getKeymapPaths: ->
     keymapsDirPath = path.join(@path, 'keymaps')
@@ -229,8 +241,13 @@ class Package
       fs.listSync(menusDirPath, ['cson', 'json'])
 
   loadStylesheets: ->
-    @stylesheets = @getStylesheetPaths().map (stylesheetPath) ->
-      [stylesheetPath, atom.themes.loadStylesheet(stylesheetPath, true)]
+    @stylesheets = @getStylesheetPaths().map (stylesheetPath) =>
+      stylesheet = atom.themes.loadStylesheet(stylesheetPath, true)
+      atom.packages.selectorLinter.checkStylesheet(stylesheet, {
+        packageName: @name,
+        sourcePath: path.relative(@path, stylesheetPath),
+      })
+      [stylesheetPath, stylesheet]
 
   getStylesheetsPath: ->
     path.join(@path, @constructor.stylesheetsDir)

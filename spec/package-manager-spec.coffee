@@ -1,4 +1,5 @@
 {$, $$, WorkspaceView}  = require 'atom'
+path = require 'path'
 Package = require '../src/package'
 
 describe "PackageManager", ->
@@ -6,15 +7,28 @@ describe "PackageManager", ->
     atom.workspaceView = atom.views.getView(atom.workspace).__spacePenView
 
   describe "::loadPackage(name)", ->
+    beforeEach ->
+      atom.config.set("core.disabledPackages", [])
+
     it "continues if the package has an invalid package.json", ->
       spyOn(console, 'warn')
-      atom.config.set("core.disabledPackages", [])
       expect(-> atom.packages.loadPackage("package-with-broken-package-json")).not.toThrow()
 
     it "continues if the package has an invalid keymap", ->
       spyOn(console, 'warn')
-      atom.config.set("core.disabledPackages", [])
       expect(-> atom.packages.loadPackage("package-with-broken-keymap")).not.toThrow()
+
+    it "checks packages for deprecated selectors", ->
+      expect(atom.packages.getDeprecatedSelectors()).toEqual({})
+      atom.packages.loadPackage("package-with-deprecated-selectors")
+
+      packageDeprecations = atom.packages.getDeprecatedSelectors()["package-with-deprecated-selectors"]
+      deprecationSourcePaths = (deprecation.sourcePath for deprecation in packageDeprecations)
+      expect(deprecationSourcePaths.sort()).toEqual([
+        "index.less",
+        path.join("keymaps", "keymap.cson")
+        path.join("menus", "menu.cson")
+      ])
 
   describe "::unloadPackage(name)", ->
     describe "when the package is active", ->

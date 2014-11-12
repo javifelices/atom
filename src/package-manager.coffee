@@ -6,6 +6,7 @@ EmitterMixin = require('emissary').Emitter
 fs = require 'fs-plus'
 Q = require 'q'
 {deprecate} = require 'grim'
+SelectorLinter = require 'atom-selector-linter'
 
 Package = require './package'
 ThemePackage = require './theme-package'
@@ -31,6 +32,7 @@ class PackageManager
 
   constructor: ({configDirPath, @devMode, safeMode, @resourcePath}) ->
     @emitter = new Emitter
+    @selectorLinter = new SelectorLinter
     @packageDirPaths = []
     unless safeMode
       if @devMode
@@ -231,6 +233,9 @@ class PackageManager
       metadata = @getLoadedPackage(name)?.metadata ? Package.loadMetadata(packagePath, true)
       packages.push(metadata)
     packages
+
+  getDeprecatedSelectors: ->
+    @selectorLinter.getDeprecations()
 
   ###
   Section: Private
