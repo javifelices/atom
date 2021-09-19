@@ -57,7 +57,7 @@
     "semver": "2.2.1",
     "serializable": "^1",
     "space-pen": "3.8.1",
-    "temp": "0.7.0",
+    "temp": "0.9.4",
     "text-buffer": "^3.6.1",
     "theorist": "^1.0.2",
     "underscore-plus": "^1.6.1",
