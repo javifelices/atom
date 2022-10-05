@@ -1,0 +1,14 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:mime:20170907':
+    - atom-package-manager > npm > request > mime:
+        patched: '2022-10-05T22:12:11.275Z'
+  'npm:minimatch:20160620':
+    - atom-package-manager > npm > minimatch:
+        patched: '2022-10-05T22:12:11.275Z'
+  'npm:semver:20150403':
+    - atom-package-manager > npm > npmconf > semver:
+        patched: '2022-10-05T22:12:11.275Z'
