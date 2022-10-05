@@ -1,0 +1,39 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:hawk:20160119':
+    - grunt-download-atom-shell > github-releases > request > hawk:
+        patched: '2022-10-05T22:14:41.278Z'
+  'npm:http-signature:20150122':
+    - grunt-download-atom-shell > github-releases > request > http-signature:
+        patched: '2022-10-05T22:14:41.278Z'
+  'npm:mime:20170907':
+    - github-releases > request > mime:
+        patched: '2022-10-05T22:14:41.278Z'
+    - grunt-download-atom-shell > github-releases > request > mime:
+        patched: '2022-10-05T22:14:41.278Z'
+    - grunt-download-atom-shell > github-releases > request > form-data > mime:
+        patched: '2022-10-05T22:14:41.278Z'
+  'npm:minimatch:20160620':
+    - grunt-download-atom-shell > github-releases > minimatch:
+        patched: '2022-10-05T22:14:41.278Z'
+    - grunt-download-atom-shell > grunt > minimatch:
+        patched: '2022-10-05T22:14:41.278Z'
+    - grunt-download-atom-shell > grunt > glob > minimatch:
+        patched: '2022-10-05T22:14:41.278Z'
+    - grunt-download-atom-shell > github-releases > grunt > minimatch:
+        patched: '2022-10-05T22:14:41.278Z'
+    - grunt-download-atom-shell > github-releases > grunt > glob > minimatch:
+        patched: '2022-10-05T22:14:41.278Z'
+    - grunt-download-atom-shell > grunt > findup-sync > glob > minimatch:
+        patched: '2022-10-05T22:14:41.278Z'
+    - grunt-download-atom-shell > github-releases > grunt > findup-sync > glob > minimatch:
+        patched: '2022-10-05T22:14:41.278Z'
+  'npm:qs:20140806-1':
+    - grunt-download-atom-shell > github-releases > request > qs:
+        patched: '2022-10-05T22:14:41.278Z'
+  'npm:request:20160119':
+    - grunt-download-atom-shell > github-releases > request:
+        patched: '2022-10-05T22:14:41.278Z'
