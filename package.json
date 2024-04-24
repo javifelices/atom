@@ -61,7 +61,8 @@
     "text-buffer": "^3.6.1",
     "theorist": "^1.0.2",
     "underscore-plus": "^1.6.1",
-    "vm-compatibility-layer": "0.1.0"
+    "vm-compatibility-layer": "0.1.0",
+    "@snyk/protect": "latest"
   },
   "packageDependencies": {
     "atom-dark-syntax": "0.22.0",
@@ -145,6 +146,9 @@
   "private": true,
   "scripts": {
     "preinstall": "node -e 'process.exit(0)'",
-    "test": "node script/test"
-  }
+    "test": "node script/test",
+    "prepublish": "npm run snyk-protect",
+    "snyk-protect": "snyk-protect"
+  },
+  "snyk": true
 }
